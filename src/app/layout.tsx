@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./main.css";
 import Navbar from "@/components/navbar";
+import { IsLoginProvider } from "@/context/is-login";
 
 export const metadata: Metadata = {
   title: "Youtube Clone ",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-primary relative">
-        <Navbar>
-          {children}
-        </Navbar>
+        <IsLoginProvider>
+          <Navbar>
+            {children}
+          </Navbar>
+        </IsLoginProvider>
       </body>
     </html>
   );

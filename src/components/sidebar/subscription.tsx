@@ -26,12 +26,11 @@ const Subscription = () => {
             return isExpanded;
         });
     };
-    
 
     return ( 
         <ul>
             {user.slice(0, contentShow).map((subs,index)=>(
-                <li key={"Subscription"+index} className="hover:bg-highlightColor py-2 rounded-lg">
+                <li key={"Subscription"+index} className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
                     <Link href="/" className="flex justify-between items-center px-2 gap-2">
                         <Image className="w-6" src="/default/user.png" alt="User Profil" width={100} height={100}/>
                         <span className="w-full text-sm text line-clamp-1">{subs}</span>
