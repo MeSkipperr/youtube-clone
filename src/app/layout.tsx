@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./main.css";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Youtube Clone ",
@@ -14,8 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className="bg-primary relative">
+        <Navbar>
+          {children}
+        </Navbar>
       </body>
     </html>
   );

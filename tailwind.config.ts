@@ -14,6 +14,7 @@ export default {
         second:'#06a4ff',
         third:'#8756ff',
         bulletList:"#3EA6FF",
+        highlightColor:"#F3F2F3"
       },
     },
   },

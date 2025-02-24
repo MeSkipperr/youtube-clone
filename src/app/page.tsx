@@ -1,5 +1,7 @@
 export default function Home() {
   return (
-    <div className=""></div>
+    <div className="w-full h-[200dvh] bg-green-400">
+      <h1>TEST</h1>
+    </div>
   );
 }
