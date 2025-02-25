@@ -25,7 +25,7 @@ const UserContent = () => {
 
     return ( 
         <>
-            <div className="w-full py-4 border-t-2 border-b-2">
+            <div className="w-full py-4 border-t border-b">
                 <span className="roboto-Medium">Yours</span>
                 <ul>
                     <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
@@ -60,7 +60,7 @@ const UserContent = () => {
                     </li>
                 </ul>
             </div>
-            <div className="w-full py-4 border-t-2 border-b-2">
+            <div className="w-full py-4 border-t border-b">
                 <span className="roboto-Medium">Subscription</span>
                 <Subscription/>
             </div>
