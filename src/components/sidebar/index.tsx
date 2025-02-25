@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import UserContent from "./user-content";
 
@@ -5,16 +6,12 @@ import { IoMdHome } from "react-icons/io";
 import { FaGear } from "react-icons/fa6";
 import { MdSubscriptions } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
+import { useSidebar } from "./SidebarContext";
 
-
-interface SidebarProps {
-    children: React.ReactNode;
-    isOpen: boolean;
-}
-
-const Sidebar = ({ children, isOpen }: SidebarProps) => {
+const Sidebar = ({ children }: { children: React.ReactNode }) => {
+    const { isOpen } = useSidebar(); 
     return (
-        <div className="w-full flex relative h-full top-16">
+        <div className="w-full flex relative h-full top-16 bg-primary">
             <div
                 className={` sticky h-[calc(100dvh-4rem)] overflow-y-auto bottom-0 top-16 transition-all duration-300 ${isOpen ? "w-[12%] pl-8 px-4 " : "w-16"}`}>
                 {isOpen

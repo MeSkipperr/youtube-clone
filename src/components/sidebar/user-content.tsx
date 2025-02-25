@@ -12,7 +12,6 @@ import { AiFillLike } from "react-icons/ai";
 
 const UserContent = () => {
     const {login } = useIsLogin();
-    console.log(login)
 
     if(!login){
         return(
