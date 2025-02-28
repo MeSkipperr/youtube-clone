@@ -3,9 +3,13 @@
 import Image from "next/image";
 import UserContent from "./user-content";
 import { useState } from "react";
+import { LanguageCodeType } from "@/utils/constants";
 
+type ParamsFuncType = {
+    language?:LanguageCodeType
+}
 
-const UserSideBar = () => {
+const UserSideBar = ({language = "EN"}:ParamsFuncType)  => {
     const [userProfilIsOpen, setUserProfilIsOpen] = useState<boolean>(false);
 
     return ( 
@@ -20,7 +24,9 @@ const UserSideBar = () => {
             />
         </button>
         {userProfilIsOpen&&(
-            <UserContent/>
+            <div className="fixed top-16 bottom-0 left-0 right-0" onClick={()=>setUserProfilIsOpen(false)}>
+                <UserContent language={language}/>
+            </div>
         )}
     </>
     );

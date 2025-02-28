@@ -16,3 +16,5 @@ export const LANGUAGES = [
         shortCode: "JP"
     },
 ] as const;
+
+export type LanguageCodeType = typeof LANGUAGES[number]["shortCode"];
