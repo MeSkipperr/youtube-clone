@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./main.css";
 import Navbar from "@/components/navbar";
-import { IsLoginProvider } from "@/context/is-login";
-import { SidebarProvider } from "@/components/sidebar/SidebarContext";
 import { cookies } from "next/headers";
 import { LanguageCodeType } from "@/utils/constants";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Youtube Clone ",
@@ -24,13 +23,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="bg-primary relative">
-        <IsLoginProvider>
-          <SidebarProvider>
-            <Navbar language={language}>
-              {children}
-            </Navbar>
-          </SidebarProvider>
-        </IsLoginProvider>
+        <Providers>
+          <Navbar language={language}>
+            {children}
+          </Navbar>
+        </Providers>
       </body>
     </html>
   );

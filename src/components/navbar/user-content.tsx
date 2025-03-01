@@ -8,17 +8,41 @@ import { FaGear } from "react-icons/fa6";
 import { IoCheckmark, IoLanguage } from "react-icons/io5";
 import { LANGUAGES, LanguageCodeType } from "@/utils/constants";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import { useIsLogin } from "@/context/is-login";
 
 type PageShowType = "THEME" | "LANGUAGE" | null;
 type ParamsFuncType = {
     language?: LanguageCodeType
 }
 
+const getText = (status: boolean, language: string) => {
+    switch (language) {
+        case "JP":
+            return status ? "読み込み中.." : "ログアウト";
+        case "EN":
+            return status ? "Loading.." : "Log Out";
+        case "ID":
+            return status ? "Memuat.." : "Keluar";
+        default:
+            return "Unknown Language";
+    }
+};
+
 const UserContent = ({ language = "EN" }: ParamsFuncType) => {
     const router = useRouter();
+    const {session} = useIsLogin();
+
     const [pageShow, setPageShow] = useState<PageShowType>(null);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [selectedTheme, setSelectedTheme] = useState<string>("Use device themes");
     const [selectedLanguage, setSelectedLanguage] = useState<LanguageCodeType>(language ?? "EN");
+
+    const handleSignOut = async () => {
+        setIsLoggingOut(true); 
+        await signOut(); 
+        setIsLoggingOut(false); 
+    };
 
     const updateLanguage = async (lang: string) => {
         try {
@@ -42,7 +66,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
 
 
     return (
-        <div className="fixed top-16  right-0 w-1/6 max-h-[calc(100dvh-4rem)] overflow-y-auto  bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20 rounded-lg p-4">
+        <div className="fixed top-16  right-0 w-1/6 max-h-[calc(100dvh-4rem)] overflow-y-auto  bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20 rounded-lg p-4" onClick={(e) => e.stopPropagation()}>
             {pageShow === "THEME" &&
                 <>
                     <div className="w-full flex justify-start items-center border-b-2 py-2 gap-2">
@@ -136,7 +160,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                     <button className="w-full flex gap-2 border-b-2 border-highlightColor">
                         <div className="w-12 h-auto rounded-full aspect-square">
                             <Image
-                                src="/default/user.png"
+                                src={session?.user?.picture ?? "/default/user.png"}
                                 alt="User Profile"
                                 width={1000}
                                 height={1000}
@@ -157,18 +181,15 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         </div>
                     </button>
                     <ul className="w-full">
-                        <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
-                            <Link href="/" className="flex justify-between items-center px-2 gap-2">
+                        <li onClick={handleSignOut} className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer ">
+                            <button
+                            disabled={isLoggingOut}
+                            className="  flex justify-between items-center px-2 gap-2">
                                 <FiLogOut className="w-8 h-4" />
                                 <span className="w-full text-sm text line-clamp-1">
-                                    {
-                                        language === "JP" ? "ログアウト" :
-                                            language === "EN" ? "Log Out" :
-                                                language === "ID" ? "Keluar" :
-                                                    "Unknown Language"
-                                    }
+                                    {getText(isLoggingOut, language)}
                                 </span>
-                            </Link>
+                            </button>
                         </li>
                         <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
                             <button onClick={() => setPageShow("THEME")} className="flex w-full justify-between items-center px-2 gap-2">

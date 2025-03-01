@@ -16,9 +16,9 @@ type ParamsFuncType = {
 }
 
 const UserContent = ({ language = "EN" }: ParamsFuncType) => {
-    const { login } = useIsLogin();
+    const { status } = useIsLogin();
 
-    if (!login) {
+    if(status !== "authenticated" ){
         return (
             <div className="w-full py-4 border-t-2 border-b-2">
                 <p className="text-sm pb-2">
@@ -29,7 +29,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         "Unknown Language"
                     }
                 </p>
-                <SignInBtn />
+                <SignInBtn language={language} />
             </div>
         );
     }

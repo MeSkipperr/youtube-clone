@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
-import { HiOutlinePlusSm } from "react-icons/hi";
-import { IoIosNotifications } from "react-icons/io";
 import Sidebar from "../sidebar";
 
 import SidebarButton from "./btn-sidebar";
@@ -19,7 +17,7 @@ const Navbar = ({
 }>) => {
     return ( 
         <>
-            <div className="w-full h-16 fixed top-0 bg-primary z-10 ">
+            <nav className="w-full h-16 fixed top-0 bg-primary z-10 ">
                 <ul className="flex w-full justify-between px-8 py-2">
                     <li className="flex justify-center items-center gap-2 font-bold tracking-wider text-xl ">
                         <SidebarButton/>
@@ -42,23 +40,10 @@ const Navbar = ({
                         </button>
                     </li>
                     <li className="flex justify-center items-center gap-2">
-                        <button className=" text-base px-2 gap-2 py-2 border rounded-full flex justify-center items-center bg-highlightColor">
-                            <HiOutlinePlusSm className="size-5"/>
-                            {
-                                language === "JP" ? "のために":
-                                language === "EN" ? "Create" :
-                                language === "ID" ? "Buat" :
-                                "Unknown Language"
-                            }
-                        </button>
-                        <button className="w-10  flex justify-center items-center text-2xl aspect-square  relative">
-                            <IoIosNotifications />
-                            <span className="w-2 bottom-5 left-5 aspect-square rounded-full bg-red-500 absolute"></span>
-                        </button>
                         <UserSideBar language={language}/>
                     </li>
                 </ul>
-            </div>
+            </nav>
             <Sidebar language={language}>
                 {children}
             </Sidebar>
