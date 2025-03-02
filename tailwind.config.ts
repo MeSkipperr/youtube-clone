@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        softShadow: "0 3px 10px rgba(0, 0, 0, 0.2)",
+      },
       colors:{
         primary: '#FEFEFF',
         dark:'#0F0E0E',
