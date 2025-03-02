@@ -46,7 +46,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                     }
                 </span>
                 <ul>
-                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <FaHistory className="w-8 h-4" />
                             <span className="w-full text-sm text line-clamp-1">
@@ -59,7 +59,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                             </span>
                         </Link>
                     </li>
-                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <MdOutlinePlaylistAdd className="w-8 h-5" />
                             <span className="w-full text-sm text line-clamp-1">
@@ -72,7 +72,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                             </span>
                         </Link>
                     </li>
-                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <FaVideo className="w-8" />
                             <span className="w-full text-sm text line-clamp-1">
@@ -85,7 +85,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                             </span>
                         </Link>
                     </li>
-                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <IoIosTimer className="w-8 h-5" />
                             <span className="w-full text-sm text line-clamp-1">
@@ -98,7 +98,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                             </span>
                         </Link>
                     </li>
-                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                    <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <AiFillLike className="w-8 h-5" />
                             <span className="w-full text-sm text line-clamp-1">

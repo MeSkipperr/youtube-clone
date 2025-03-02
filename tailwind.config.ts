@@ -14,9 +14,12 @@ export default {
         second:'#06a4ff',
         third:'#8756ff',
         bulletList:"#3EA6FF",
-        highlightColor:"#F3F2F3"
+        highlightColor:"#F3F2F3",
+        highlightColorDark:"#3E3F3E",
+        darkHover:"#444644",
       },
     },
   },
+  darkMode: 'class', 
   plugins: [],
 } satisfies Config;

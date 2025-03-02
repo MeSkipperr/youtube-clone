@@ -25,7 +25,7 @@ const UserSideBar = ({language = "EN"}:ParamsFuncType)  => {
 
     return ( 
         <>
-            <button className=" text-base px-2 gap-2 py-2 border rounded-full flex justify-center items-center bg-highlightColor">
+            <button className=" text-base px-2 gap-2 py-2 rounded-full flex justify-center items-center bg-highlightColor dark:bg-highlightColorDark dark:text-white">
                 <HiOutlinePlusSm className="size-5"/>
                 {
                     language === "JP" ? "のために":
@@ -34,11 +34,11 @@ const UserSideBar = ({language = "EN"}:ParamsFuncType)  => {
                     "Unknown Language"
                 }
             </button>
-            <button className="w-10  flex justify-center items-center text-2xl aspect-square  relative">
+            <button className="w-10  flex justify-center items-center text-2xl aspect-square  relative dark:text-white ">
                 <IoIosNotifications />
                 <span className="w-2 bottom-5 left-5 aspect-square rounded-full bg-red-500 absolute"></span>
             </button>
-            <button onClick={()=>setUserProfilIsOpen(!userProfilIsOpen)} className="w-10 aspect-square border rounded-full border-highlightColor">
+            <button onClick={()=>setUserProfilIsOpen(!userProfilIsOpen)} className="w-10 aspect-square border rounded-full border-highlightColor dark:border-highlightColorDark">
                 <Image
                 src={session?.user?.picture ?? "/default/user.png"}
                 alt="User Profil"

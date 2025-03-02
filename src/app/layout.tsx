@@ -22,7 +22,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="bg-primary relative">
+      <body className="bg-primary relative dark:bg-dark">
         <Providers>
           <Navbar language={language}>
             {children}

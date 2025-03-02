@@ -10,6 +10,7 @@ import { LANGUAGES, LanguageCodeType } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useIsLogin } from "@/context/is-login";
+import { ThemeType, themeValue, useDarkMode } from "@/context/DarkModeContext";
 
 type PageShowType = "THEME" | "LANGUAGE" | null;
 type ParamsFuncType = {
@@ -31,17 +32,25 @@ const getText = (status: boolean, language: string) => {
 
 const UserContent = ({ language = "EN" }: ParamsFuncType) => {
     const router = useRouter();
-    const {session} = useIsLogin();
+    const { session } = useIsLogin();
+    const { setTheme } = useDarkMode();
 
     const [pageShow, setPageShow] = useState<PageShowType>(null);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
-    const [selectedTheme, setSelectedTheme] = useState<string>("Use device themes");
+    const [selectedTheme, setSelectedTheme] = useState<ThemeType>(
+        localStorage.getItem("theme") as ThemeType || "System"
+    );
+
+    const handleThemeChange = (theme: ThemeType) => {
+        setSelectedTheme(theme);
+        setTheme(theme);
+    };
     const [selectedLanguage, setSelectedLanguage] = useState<LanguageCodeType>(language ?? "EN");
 
     const handleSignOut = async () => {
-        setIsLoggingOut(true); 
-        await signOut(); 
-        setIsLoggingOut(false); 
+        setIsLoggingOut(true);
+        await signOut();
+        setIsLoggingOut(false);
     };
 
     const updateLanguage = async (lang: string) => {
@@ -66,11 +75,11 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
 
 
     return (
-        <div className="fixed top-16  right-0 w-1/6 max-h-[calc(100dvh-4rem)] overflow-y-auto  bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20 rounded-lg p-4" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed top-16  right-0 w-1/6 max-h-[calc(100dvh-4rem)] overflow-y-auto  bg-white dark:bg-highlightColorDark shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20 rounded-lg p-4" onClick={(e) => e.stopPropagation()}>
             {pageShow === "THEME" &&
                 <>
-                    <div className="w-full flex justify-start items-center border-b-2 py-2 gap-2">
-                        <button onClick={() => setPageShow(null)} className="aspect-square rounded-full hover:bg-highlightColor">
+                    <div className="w-full flex justify-start items-center border-b-2 py-2 gap-2 dark:text-white">
+                        <button onClick={() => setPageShow(null)} className="aspect-square rounded-full hover:bg-highlightColor dark:hover:bg-darkHover">
                             <IoIosArrowForward className="w-8 rotate-180" />
                         </button>
                         {
@@ -80,7 +89,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                                         "Unknown Language"
                         }
                     </div>
-                    <p className="text-sm">
+                    <p className="text-sm dark:text-white" >
                         {
                             language === "JP" ? "設定はこのブラウザのみに適用されます" :
                                 language === "EN" ? "Settings apply only to this browser" :
@@ -89,34 +98,39 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         }
                     </p>
                     <ul>
-                        {["Use device themes", "Light Mode", "Dark Mode"].map((theme) => (
+                        {themeValue.map((theme:ThemeType) => (
                             <li
                                 key={theme}
-                                className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-highlightColor transition text-sm"
-                                onClick={() => setSelectedTheme(theme)}
+                                className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-highlightColor  transition text-sm dark:text-white dark:hover:bg-darkHover"
+                                onClick={() => handleThemeChange(theme)}
                             >
                                 <div className="w-6 h-4 flex justify-center items-center rounded-full">
                                     {selectedTheme === theme && <IoCheckmark className="text-xl text-blue-500" />}
                                 </div>
                                 <span>
-                                    {
-                                        theme === "Use device themes" ?
-                                            (language === "JP" ? "デバイスのテーマを使用する" :
-                                                language === "EN" ? "Use device themes" :
-                                                    language === "ID" ? "Gunakan tema perangkat" :
-                                                        "Unknown Language") :
-                                            theme === "Light Mode" ?
-                                                (language === "JP" ? "ライトモード" :
-                                                    language === "EN" ? "Light Mode" :
-                                                        language === "ID" ? "Mode Terang" :
-                                                            "Unknown Language") :
-                                                theme === "Dark Mode" ?
-                                                    (language === "JP" ? "ダークモード" :
-                                                        language === "EN" ? "Dark Mode" :
-                                                            language === "ID" ? "Mode Gelap" :
-                                                                "Unknown Language") :
-                                                    theme
-                                    }
+                                    {theme === "System"
+                                        ? language === "JP"
+                                            ? "デバイスのテーマを使用する"
+                                            : language === "EN"
+                                                ? "Use device themes"
+                                                : language === "ID"
+                                                    ? "Gunakan tema perangkat"
+                                                    : "Unknown Language"
+                                        : theme === "Dark"
+                                            ? language === "JP"
+                                                ? "ダークモード"
+                                                : language === "EN"
+                                                    ? "Dark Mode"
+                                                    : language === "ID"
+                                                        ? "Mode Gelap"
+                                                        : "Unknown Language"
+                                            : language === "JP"
+                                                ? "ライトモード"
+                                                : language === "EN"
+                                                    ? "Light Mode"
+                                                    : language === "ID"
+                                                        ? "Mode Terang"
+                                                        : "Unknown Language"}
                                 </span>
                             </li>
                         ))}
@@ -125,8 +139,8 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
             }
             {pageShow === "LANGUAGE" &&
                 <>
-                    <div className="w-full flex justify-start items-center border-b-2 py-2 gap-2">
-                        <button onClick={() => setPageShow(null)} className="aspect-square rounded-full hover:bg-highlightColor">
+                    <div className="w-full flex justify-start items-center border-b-2 py-2 gap-2 dark:text-white"> 
+                        <button onClick={() => setPageShow(null)} className="aspect-square rounded-full hover:bg-highlightColor dark:hover:bg-darkHover">
                             <IoIosArrowForward className="w-8 rotate-180" />
                         </button>
                         {
@@ -140,7 +154,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         {LANGUAGES.map((lang) => (
                             <li
                                 key={lang.fullName}
-                                className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-highlightColor transition text-sm"
+                                className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-highlightColor transition text-sm dark:hover:bg-darkHover dark:text-white"
                                 onClick={() => {
                                     setSelectedLanguage(lang.shortCode);
                                     updateLanguage(lang.shortCode)
@@ -157,7 +171,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
             }
             {pageShow === null &&
                 <>
-                    <button className="w-full flex gap-2 border-b-2 border-highlightColor">
+                    <button className="w-full flex gap-2 border-b-2 border-highlightColor dark:text-white">
                         <div className="w-12 h-auto rounded-full aspect-square">
                             <Image
                                 src={session?.user?.picture ?? "/default/user.png"}
@@ -180,18 +194,18 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                             </span>
                         </div>
                     </button>
-                    <ul className="w-full">
-                        <li onClick={handleSignOut} className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer ">
+                    <ul className="w-full dark:text-white">
+                        <li onClick={handleSignOut} className="hover:bg-highlightColor dark:hover:bg-darkHover py-2 rounded-lg cursor-pointer ">
                             <button
-                            disabled={isLoggingOut}
-                            className="  flex justify-between items-center px-2 gap-2">
+                                disabled={isLoggingOut}
+                                className="  flex justify-between items-center px-2 gap-2">
                                 <FiLogOut className="w-8 h-4" />
                                 <span className="w-full text-sm text line-clamp-1">
                                     {getText(isLoggingOut, language)}
                                 </span>
                             </button>
                         </li>
-                        <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                        <li className="hover:bg-highlightColor dark:hover:bg-darkHover py-2 rounded-lg cursor-pointer">
                             <button onClick={() => setPageShow("THEME")} className="flex w-full justify-between items-center px-2 gap-2">
                                 <IoIosMoon className="w-8 h-4" />
                                 <span className="w-full flex text-sm text line-clamp-1">
@@ -205,7 +219,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                                 <IoIosArrowForward className="w-8 h-4" />
                             </button>
                         </li>
-                        <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                        <li className="hover:bg-highlightColor dark:hover:bg-darkHover py-2 rounded-lg cursor-pointer">
                             <button onClick={() => setPageShow("LANGUAGE")} className="flex w-full justify-between items-center px-2 gap-2">
                                 <IoLanguage className="w-8 h-4" />
                                 <span className="w-full flex text-sm text line-clamp-1">
@@ -219,7 +233,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                                 <IoIosArrowForward className="w-8 h-4" />
                             </button>
                         </li>
-                        <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer">
+                        <li className="hover:bg-highlightColor dark:hover:bg-darkHover py-2 rounded-lg cursor-pointer">
                             <Link href="/" className="flex justify-between items-center px-2 gap-2">
                                 <FaGear className="w-8 h-4" />
                                 <span className="w-full text-sm text line-clamp-1">

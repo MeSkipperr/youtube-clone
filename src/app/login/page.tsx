@@ -8,6 +8,6 @@ export default function AuthButton() {
   if (status === "loading") return <p>Loading...</p>;
 
   return  (
-      <pre>{session ? JSON.stringify(session, null, 2) : "Loading..."}</pre>
+      <pre>{session ? JSON.stringify(session, null, 2) : "Loading..."}</pre>m run de
   )
 }
