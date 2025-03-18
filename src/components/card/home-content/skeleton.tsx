@@ -1,7 +1,7 @@
 const CardHomeSkeleton = () => {
     return ( 
         <div className="w-full rounded-sm cursor-pointer">
-            <div className="w-full aspect-video animate-pulse dark:bg-highlightColorDark bg-highlightColor">
+            <div className="w-full aspect-video animate-pulse dark:bg-highlightColorDark bg-highlightColor rounded-md">
                 
             </div>
             <ul className="w-full h-20 gap-2 py-2 flex">
