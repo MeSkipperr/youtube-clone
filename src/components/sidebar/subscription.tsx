@@ -41,13 +41,13 @@ const Subscription = ({ language = "EN" }: ParamsFuncType) => {
             {user.slice(0, contentShow).map((subs,index)=>(
                 <li key={"Subscription"+index} className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                     <Link href="/" className="flex justify-between items-center px-2 gap-2">
-                        <Image className="w-6" src="/default/user.png" alt="User Profil" width={100} height={100}/>
+                        <Image className="w-6 rounded-full" src="/default/user.png" alt="User Profil" width={100} height={100}/>
                         <span className="w-full text-sm text line-clamp-1">{subs}</span>
                         <span className="size-1.5  bg-bulletList rounded-full"></span>
                     </Link>
                 </li>
             ))}
-            <button onClick={changeContentShow}  className="w-full hover:bg-highlightColor py-2 rounded-lg flex justify-start items-center px-2 gap-2">
+            <button onClick={changeContentShow}  className="w-full hover:bg-highlightColor dark:hover:bg-darkHover py-2 rounded-lg flex justify-start items-center px-2 gap-2">
                 <IoIosArrowUp className={`w-6 ${!showMore&& "rotate-180"} `}/>
                 <span className=" text-sm text line-clamp-1">
                         {showMore ? translations[language].showLess : translations[language].showMore}
