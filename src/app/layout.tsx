@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./main.css";
 import Navbar from "@/components/navbar";
-import { cookies } from "next/headers";
-import { LanguageCodeType } from "@/utils/constants";
 import { Providers } from "./providers";
+import { getLanguage } from "@/utils/getLanguage";
 
 export const metadata: Metadata = {
   title: "Youtube Clone ",
@@ -17,8 +16,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const cookieStore = await cookies();
-  const language = (cookieStore.get("language")?.value as LanguageCodeType) || "EN";
+  const language = await getLanguage();
 
   return (
     <html lang="en">
