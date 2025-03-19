@@ -6,18 +6,18 @@ import { useState } from "react";
 import { LanguageCodeType } from "@/utils/constants";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
-import { useIsLogin } from "@/context/is-login";
 import SignInBtn from "@/components/sign-in-button";
+import { Session } from "next-auth";
 
 type ParamsFuncType = {
-    language?:LanguageCodeType
+    language?:LanguageCodeType;
+    user:Session["user"] | null;
 }
 
-const UserSideBar = ({language = "EN"}:ParamsFuncType)  => {
+const UserSideBar = ({language = "EN",user}:ParamsFuncType)  => {
     const [userProfilIsOpen, setUserProfilIsOpen] = useState<boolean>(false);
-    const { session,status } = useIsLogin();
 
-    if(status !== "authenticated" ){
+    if(!user){
         return(
             <SignInBtn language={language}/>
         )
@@ -40,7 +40,7 @@ const UserSideBar = ({language = "EN"}:ParamsFuncType)  => {
             </button>
             <button onClick={()=>setUserProfilIsOpen(!userProfilIsOpen)} className="w-10 aspect-square border rounded-full border-highlightColor dark:border-highlightColorDark">
                 <Image
-                src={session?.user?.picture ?? "/default/user.png"}
+                src={user?.picture ?? "/default/user.png"}
                 alt="User Profil"
                 layout="full"
                 width={1000}
@@ -50,7 +50,7 @@ const UserSideBar = ({language = "EN"}:ParamsFuncType)  => {
             </button>
             {userProfilIsOpen&&(
                 <div className="fixed top-16 bottom-0 left-0 right-0" onClick={()=>setUserProfilIsOpen(false)}>
-                    <UserContent language={language}/>
+                    <UserContent language={language} user={user}/>
                 </div>
             )}
         </>

@@ -9,12 +9,13 @@ import { IoCheckmark, IoLanguage } from "react-icons/io5";
 import { LANGUAGES, LanguageCodeType } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useIsLogin } from "@/context/is-login";
 import { ThemeType, themeValue, useDarkMode } from "@/context/DarkModeContext";
+import { Session } from "next-auth";
 
 type PageShowType = "THEME" | "LANGUAGE" | null;
 type ParamsFuncType = {
-    language?: LanguageCodeType
+    language?: LanguageCodeType;
+    user:Session["user"];
 }
 
 const getText = (status: boolean, language: string) => {
@@ -30,9 +31,8 @@ const getText = (status: boolean, language: string) => {
     }
 };
 
-const UserContent = ({ language = "EN" }: ParamsFuncType) => {
+const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
     const router = useRouter();
-    const { session } = useIsLogin();
     const { setTheme } = useDarkMode();
 
     const [pageShow, setPageShow] = useState<PageShowType>(null);
@@ -174,7 +174,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                     <button className="w-full flex gap-2 border-b-2 border-highlightColor dark:text-white">
                         <div className="w-12 h-auto rounded-full aspect-square">
                             <Image
-                                src={session?.user?.picture ?? "/default/user.png"}
+                                src={user.picture ?? "/default/user.png"}
                                 alt="User Profile"
                                 width={1000}
                                 height={1000}
@@ -182,8 +182,8 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                             />
                         </div>
                         <div className="flex flex-col flex-grow items-start">
-                            <span>Kadek Yola</span>
-                            <span className="text-sm">@kadekyola</span>
+                            <span>{user.name}</span>
+                            <span className="text-sm">{user.userName}</span>
                             <span className="text-sm text-bulletList">
                                 {
                                     language === "JP" ? "詳細" :

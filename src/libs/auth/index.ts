@@ -19,6 +19,12 @@ export const authOptions: NextAuthOptions = {
                 token.email = user.email as string;
                 token.name = user.name as string;
                 token.picture = user.image as string;
+                token.userName = "@kdk.yolaandika" as string
+                token.accessToken = encode({ 
+                    id: user.id,
+                    email: user.email,
+                    name: user.name
+                });
             }
             return token;
         },
@@ -54,7 +60,7 @@ export const authOptions: NextAuthOptions = {
 
 export const { handlers, auth } = NextAuth(authOptions);
 
-export const authUserSession = async (): Promise<Session | null> => {
-    const session: Session | null = await getServerSession(authOptions);
-    return session;
+export const authUserSession = async (): Promise<Session["user"] | null> => {
+    const session = await getServerSession(authOptions);
+    return session?.user ?? null;   
 };
