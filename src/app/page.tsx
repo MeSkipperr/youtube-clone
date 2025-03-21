@@ -1,41 +1,36 @@
-import CardHomeContent from "@/components/card/home-content";
-import CardHomeSkeleton from "@/components/card/home-content/skeleton";
+import ParentContent from "@/components/home/content-parent";
+import CardHomeSkeleton from "@/components/home/home-content/skeleton";
 import { getLanguage } from "@/utils/getLanguage";
 
 const fetchInitialData = async () => {
-  // const baseUrl = process.env.BASE_URL || "http://localhost:3000"; // Default jika .env tidak ada
-  // const res = await fetch(`${baseUrl}/api/user/history?user=user1&page=1`, { cache: "no-store" });
+  const baseUrl = process.env.BASE_URL || "http://localhost:3000"; 
+  const res = await fetch(`${baseUrl}/api/user/history?user=user1&page=1`, { cache: "no-store" });
 
-  // if (!res.ok) {
-  //   throw new Error(`Failed to fetch data: ${res.statusText}`);
-  // }
-
-  // return res.json();
-  return true;
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+  return await res.json();
 };
 
 
 export default async function Home() {
+  const isHaveRecommend = true;
   const initialData = await fetchInitialData();
   const language = await getLanguage();
 
+
   return (
   <div className="w-full min-h-dvh dark:bg-dark flex justify-start items-center pt-4 flex-col">
-    {initialData?
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-8">
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeContent/>
-        <CardHomeSkeleton/>
-        <CardHomeSkeleton/>
-        <CardHomeSkeleton/>
-        <CardHomeSkeleton/>
-      </div>
+    {isHaveRecommend?
+      initialData?
+        <ParentContent language={language} firstRecommendation={initialData}/>
+        :
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-8">
+          {Array.from({ length: 12 }).map((_, index) => (
+              <CardHomeSkeleton key={index}/>
+            ))
+          }
+        </div>
     :
     <div className=" flex flex-col  border rounded-lg border-highlightColor dark:bg-highlightColorDark dark:border-darkHover shadow-softShadow  px-12 py-4 justify-center items-center">
       <h1 className="text-2xl roboto-Medium">
