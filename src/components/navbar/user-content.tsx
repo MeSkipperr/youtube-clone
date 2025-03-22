@@ -11,29 +11,14 @@ import { signOut } from "next-auth/react";
 import { ThemeType, themeValue, useDarkMode } from "@/context/DarkModeContext";
 import { Session } from "next-auth";
 import { useLanguage } from "@/context/language/LanguageContext";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type PageShowType = "THEME" | "LANGUAGE" | null;
-type ParamsFuncType = {
-    language?: LanguageCodeType;
-    user:Session["user"];
-}
 
-const getText = (status: boolean, language: string) => {
-    switch (language) {
-        case "JP":
-            return status ? "読み込み中.." : "ログアウト";
-        case "EN":
-            return status ? "Loading.." : "Log Out";
-        case "ID":
-            return status ? "Memuat.." : "Keluar";
-        default:
-            return "Unknown Language";
-    }
-};
-
-const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
+const UserContent = ({user}: {user:Session["user"]}) => {
     const { setTheme } = useDarkMode();
     const {setLanguage} = useLanguage();
+    const {language,t} = useTranslation();
 
     const [pageShow, setPageShow] = useState<PageShowType>(null);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -61,20 +46,10 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                         <button onClick={() => setPageShow(null)} className="aspect-square rounded-full hover:bg-highlightColor dark:hover:bg-darkHover">
                             <IoIosArrowForward className="w-8 rotate-180" />
                         </button>
-                        {
-                            language === "JP" ? "テーマ" :
-                                language === "EN" ? "Theme" :
-                                    language === "ID" ? "Tema" :
-                                        "Unknown Language"
-                        }
+                            {t.navigation.theme}
                     </div>
                     <p className="text-sm dark:text-white" >
-                        {
-                            language === "JP" ? "設定はこのブラウザのみに適用されます" :
-                                language === "EN" ? "Settings apply only to this browser" :
-                                    language === "ID" ? "Setelan hanya berlaku untuk browser ini" :
-                                        "Unknown Language"
-                        }
+                        {t.navigation.themeConf.text}
                     </p>
                     <ul>
                         {themeValue.map((theme:ThemeType) => (
@@ -88,28 +63,10 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                                 </div>
                                 <span>
                                     {theme === "System"
-                                        ? language === "JP"
-                                            ? "デバイスのテーマを使用する"
-                                            : language === "EN"
-                                                ? "Use device themes"
-                                                : language === "ID"
-                                                    ? "Gunakan tema perangkat"
-                                                    : "Unknown Language"
+                                        ?t.navigation.themeConf.system
                                         : theme === "Dark"
-                                            ? language === "JP"
-                                                ? "ダークモード"
-                                                : language === "EN"
-                                                    ? "Dark Mode"
-                                                    : language === "ID"
-                                                        ? "Mode Gelap"
-                                                        : "Unknown Language"
-                                            : language === "JP"
-                                                ? "ライトモード"
-                                                : language === "EN"
-                                                    ? "Light Mode"
-                                                    : language === "ID"
-                                                        ? "Mode Terang"
-                                                        : "Unknown Language"}
+                                        ?t.navigation.themeConf.dark
+                                        :t.navigation.themeConf.light}
                                 </span>
                             </li>
                         ))}
@@ -122,12 +79,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                         <button onClick={() => setPageShow(null)} className="aspect-square rounded-full hover:bg-highlightColor dark:hover:bg-darkHover">
                             <IoIosArrowForward className="w-8 rotate-180" />
                         </button>
-                        {
-                            language === "JP" ? "言語を選択してください" :
-                                language === "EN" ? "Choose your language" :
-                                    language === "ID" ? "Silakan pilih bahasa" :
-                                        "Unknown Language"
-                        }
+                        {t.navigation.languageConf}
                     </div>
                     <ul>
                         {LANGUAGES.map((lang) => (
@@ -164,12 +116,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                             <span>{user.name}</span>
                             <span className="text-sm">{user.userName}</span>
                             <span className="text-sm text-bulletList">
-                                {
-                                    language === "JP" ? "詳細" :
-                                        language === "EN" ? "Detail" :
-                                            language === "ID" ? "Detail" :
-                                                "Unknown Language"
-                                }
+                                {t.navigation.detail}
                             </span>
                         </div>
                     </button>
@@ -180,7 +127,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                                 className="  flex justify-between items-center px-2 gap-2">
                                 <FiLogOut className="w-8 h-4" />
                                 <span className="w-full text-sm text line-clamp-1">
-                                    {getText(isLoggingOut, language)}
+                                    {isLoggingOut?t.navigation.loading:t.navigation.auth.logOut}
                                 </span>
                             </button>
                         </li>
@@ -188,12 +135,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                             <button onClick={() => setPageShow("THEME")} className="flex w-full justify-between items-center px-2 gap-2">
                                 <IoIosMoon className="w-8 h-4" />
                                 <span className="w-full flex text-sm text line-clamp-1">
-                                    {
-                                        language === "JP" ? "テーマ" :
-                                            language === "EN" ? "Theme" :
-                                                language === "ID" ? "Tema" :
-                                                    "Unknown Language"
-                                    }
+                                    {t.navigation.theme}
                                 </span>
                                 <IoIosArrowForward className="w-8 h-4" />
                             </button>
@@ -202,12 +144,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                             <button onClick={() => setPageShow("LANGUAGE")} className="flex w-full justify-between items-center px-2 gap-2">
                                 <IoLanguage className="w-8 h-4" />
                                 <span className="w-full flex text-sm text line-clamp-1">
-                                    {
-                                        language === "JP" ? "言語" :
-                                            language === "EN" ? "Language" :
-                                                language === "ID" ? "Bahasa" :
-                                                    "Unknown Language"
-                                    }
+                                    {t.navigation.language}
                                 </span>
                                 <IoIosArrowForward className="w-8 h-4" />
                             </button>
@@ -216,12 +153,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                             <Link href="/" className="flex justify-between items-center px-2 gap-2">
                                 <FaGear className="w-8 h-4" />
                                 <span className="w-full text-sm text line-clamp-1">
-                                    {
-                                        language === "JP" ? "設定" :
-                                            language === "EN" ? "Settings" :
-                                                language === "ID" ? "Pengaturan" :
-                                                    "Unknown Language"
-                                    }
+                                    {t.navigation.setting}
                                 </span>
                             </Link>
                         </li>

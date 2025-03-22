@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
-import { LanguageCodeType, SIDEBAR } from "@/utils/constants";
+import { SIDEBAR } from "@/utils/constants";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const user = [
     "User 1",
@@ -14,17 +15,9 @@ const user = [
     "User 7",
     "User 8",
 ]
-type ParamsFuncType = {
-    language?: LanguageCodeType
-}
 
-const translations = {
-    EN: { showMore: "Show more", showLess: "Show less" },
-    ID: { showMore: "Tampilkan lebih banyak", showLess: "Tampilkan lebih sedikit" },
-    JP: { showMore: "もっと見る", showLess: "少なく表示" }
-};
-
-const Subscription = ({ language = "EN" }: ParamsFuncType) => {
+const Subscription = () => {
+    const {t} = useTranslation();
     const [contentShow, setContentShow] = useState<number>(SIDEBAR.SUBSCRIPTION_LENGHT);
     const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -50,7 +43,7 @@ const Subscription = ({ language = "EN" }: ParamsFuncType) => {
             <button onClick={changeContentShow}  className="w-full hover:bg-highlightColor dark:hover:bg-darkHover py-2 rounded-lg flex justify-start items-center px-2 gap-2">
                 <IoIosArrowUp className={`w-6 ${!showMore&& "rotate-180"} `}/>
                 <span className=" text-sm text line-clamp-1">
-                        {showMore ? translations[language].showLess : translations[language].showMore}
+                    {showMore ? t.navigation.showLess : t.navigation.showMore}
                 </span>
             </button>
         </ul>

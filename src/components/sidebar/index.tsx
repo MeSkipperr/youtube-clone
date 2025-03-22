@@ -8,15 +8,16 @@ import { MdSubscriptions } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useSidebar } from "./SidebarContext";
 import { LanguageCodeType } from "@/utils/constants";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Sidebar = ({
     children,
-    language = "EN",
 }: Readonly<{   
     children: React.ReactNode;
     language?: LanguageCodeType;
 }>) => {
     const { isOpen } = useSidebar(); 
+    const {t} = useTranslation();
     return (
         <div className="w-full flex  relative h-full top-16 bg-primary dark:bg-dark dark:text-white">
             <div
@@ -29,10 +30,7 @@ const Sidebar = ({
                                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                                             <IoMdHome className="w-8 h-4" />
                                             <span className="w-full text-sm text line-clamp-1">
-                                                {language === "JP" ? "ホーム" :
-                                                language === "EN" ? "Home" :
-                                                language === "ID" ? "Beranda" :
-                                                "Unknown Language"}
+                                                {t.navigation.home}
                                             </span>
                                         </Link>
                                     </li>
@@ -40,17 +38,14 @@ const Sidebar = ({
                                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                                             <MdSubscriptions className="w-8 h-4" />
                                             <span className="w-full text-sm text line-clamp-1">
-                                                {language === "JP" ? "登録チャンネル" :
-                                                language === "EN" ? "Subscriptions" :
-                                                language === "ID" ? "Langganan" :
-                                                "Unknown Language"}
+                                                {t.navigation.subscription}
                                             </span>
                                         </Link>
                                     </li>
                                 </ul>
                             </div>
 
-                            <UserContent language={language} />
+                            <UserContent />
 
                             <div className="w-full py-4 border-t">
                                 <ul>
@@ -58,10 +53,7 @@ const Sidebar = ({
                                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                                             <FaGear className="w-8 h-4" />
                                             <span className="w-full text-sm text line-clamp-1">
-                                                {language === "JP" ? "設定" :
-                                                language === "EN" ? "Setting" :
-                                                language === "ID" ? "Pengaturan" :
-                                                "Unknown Language"}
+                                                {t.navigation.setting}
                                             </span>
                                         </Link>
                                     </li>

@@ -8,6 +8,7 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
 import SignInBtn from "@/components/sign-in-button";
 import { Session } from "next-auth";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type ParamsFuncType = {
     language?:LanguageCodeType;
@@ -16,6 +17,7 @@ type ParamsFuncType = {
 
 const UserSideBar = ({language = "EN",user}:ParamsFuncType)  => {
     const [userProfilIsOpen, setUserProfilIsOpen] = useState<boolean>(false);
+    const {t} = useTranslation();
 
     if(!user){
         return(
@@ -27,12 +29,7 @@ const UserSideBar = ({language = "EN",user}:ParamsFuncType)  => {
         <>
             <button className=" text-base px-2 gap-2 py-2 rounded-full flex justify-center items-center bg-highlightColor dark:bg-highlightColorDark dark:text-white">
                 <HiOutlinePlusSm className="size-5"/>
-                {
-                    language === "JP" ? "のために":
-                    language === "EN" ? "Create" :
-                    language === "ID" ? "Buat" :
-                    "Unknown Language"
-                }
+                {t.navigation.create}
             </button>
             <button className="w-10  flex justify-center items-center text-2xl aspect-square  relative dark:text-white ">
                 <IoIosNotifications />
@@ -50,7 +47,7 @@ const UserSideBar = ({language = "EN",user}:ParamsFuncType)  => {
             </button>
             {userProfilIsOpen&&(
                 <div className="fixed top-16 bottom-0 left-0 right-0" onClick={()=>setUserProfilIsOpen(false)}>
-                    <UserContent language={language} user={user}/>
+                    <UserContent user={user}/>
                 </div>
             )}
         </>

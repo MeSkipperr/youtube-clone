@@ -5,6 +5,7 @@ import jp from "@/locales/jp.json";
 import { LanguageCodeType } from "@/context/language/languageData";
 
 // Object containing translations for supported languages.
+// const translations = { en };
 const translations = { en, id, jp };
 
 /**

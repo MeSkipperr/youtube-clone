@@ -1,6 +1,43 @@
 {
-    "greeting": "こんにちは",
-    "welcome": "私たちのウェブサイトへようこそ！",
-    "language": "言語"
+  "homePage": {
+    "getStarted": [
+      "検索して開始",
+      "あなたが気に入る動画のフィードを作成するために、動画の視聴を開始してください。"
+    ]
+  },
+  "navigation": {
+    "loading": "読み込み中...",
+    "home": "ホーム",
+    "search": "検索",
+    "subscription": "登録チャンネル",
+    "create": "作成",
+    "auth": {
+      "signIn": "サインイン",
+      "signInProcess": "サインイン中...",
+      "logOut": "ログアウト"
+    },
+    "detail": "詳細",
+    "setting": "設定",
+    "theme": "テーマ",
+    "themeConf": {
+      "text": "設定はこのブラウザにのみ適用されます",
+      "dark": "ダークモード",
+      "light": "ライトモード",
+      "system": "デバイスのテーマを使用"
+    },
+    "language": "言語",
+    "languageConf": "言語を選択してください",
+    "needSignIn": "動画を高く評価したり、コメントしたり、チャンネル登録するにはサインインしてください。",
+    "user": {
+      "yours": "あなたのもの",
+      "history": "履歴",
+      "playlist": "再生リスト",
+      "yourVideo": "あなたの動画",
+      "watchLater": "後で見る",
+      "likedVideo": "高く評価した動画",
+      "subscription": "登録チャンネル"
+    },
+    "showMore": "さらに表示",
+    "showLess": "表示を減らす"
   }
-  
+}

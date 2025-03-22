@@ -1,6 +1,43 @@
 {
-    "greeting": "Hello",
-    "welcome": "Welcome to our website!",
-    "language": "Language"
+  "homePage":{
+    "getStarted":[
+      "Try searching to get started",
+      "Start watching videos to help us build a feed of videos you'll love."
+    ]
+  },
+  "navigation":{
+    "loading":"Loading...",
+    "home":"Home",
+    "search":"Search",
+    "subscription":"Subscriptions",
+    "create":"Create",
+    "auth":{
+      "signIn":"Sign In",
+      "signInProcess":"Signing in...",
+      "logOut":"Log Out"
+    },
+    "detail":"Detail",
+    "setting":"Setting",
+    "theme":"Theme",
+    "themeConf":{
+      "text":"Settings apply only to this browser",
+      "dark":"Dark Mode",
+      "light":"Light Mode",
+      "system":"Use device theme"
+    },
+    "language":"Language",
+    "languageConf":"Choose your language",
+    "needSignIn":"Sign in to like videos, comment, and subscribe.",
+    "user":{
+        "yours":"Yours",
+        "history":"History",
+        "playlist":"Playlist",
+        "yourVideo":"Your Videos",
+        "watchLater":"Watch Later",
+        "likedVideo":"Liked Videos",
+        "subscription":"Subscription"
+    },
+    "showMore":"Show more",
+    "showLess":"Show less"
   }
-  
+}

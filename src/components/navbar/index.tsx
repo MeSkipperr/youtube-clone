@@ -7,17 +7,18 @@ import UserSideBar from "./user-sidebar";
 import { LanguageCodeType } from "@/utils/constants";
 import { authUserSession } from "@/libs/auth";
 import { Session } from "next-auth";
+import { getLanguage } from "@/utils/getLanguage";
 
 
 
 const Navbar = async ({
     children,
-    language = "EN",
 }: Readonly<{   
     children: React.ReactNode;
     language?: LanguageCodeType;
 }>) => {
-
+    const {t} = await getLanguage();
+    
     const user : Session["user"] | null = await authUserSession();
 
     return ( 
@@ -34,10 +35,7 @@ const Navbar = async ({
                             type="text" 
                             className="flex-1 h-full outline-none px-4 dark:bg-dark dark:text-white placeholder:text-highlightColor dark:placeholder:text-highlightColorDark" 
                             placeholder={
-                                language === "JP" ? "検索" :
-                                language === "EN" ? "Search" :
-                                language === "ID" ? "Cari" :
-                                "Unknown Language"
+                                t.navigation.search
                             }
                         />
                         <button className="h-full aspect-video flex justify-center items-center text-2xl bg-highlightColor dark:bg-highlightColorDark dark:text-white">
@@ -45,11 +43,11 @@ const Navbar = async ({
                         </button>
                     </li>
                     <li className="flex justify-center items-center gap-2">
-                        <UserSideBar language={language} user={user}/>
+                        <UserSideBar user={user}/>
                     </li>
                 </ul>
             </nav>
-            <Sidebar language={language}>
+            <Sidebar >
                 {children}
             </Sidebar>
         </>

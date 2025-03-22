@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { LanguageCodeType } from "@/utils/constants";
 import { signIn } from "next-auth/react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type SignInBtnProps = {
     className?: string;
-    language?: LanguageCodeType;
 };
 
-const SignInBtn = ({ className, language = "EN" }: SignInBtnProps) => {
+const SignInBtn = ({ className}: SignInBtnProps) => {
     const [isLoading, setIsLoading] = useState(false);
+    const {t} = useTranslation();
 
     const handleSignIn = async () => {
         setIsLoading(true); 
@@ -24,14 +24,8 @@ const SignInBtn = ({ className, language = "EN" }: SignInBtnProps) => {
                 ${className} ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
         >
             {isLoading
-                ? language === "JP" ? "ログイン中..." :
-                language === "EN" ? "Signing in..." :
-                language === "ID" ? "Masuk..." :
-                "Unknown Language"
-                : language === "JP" ? "ログイン" :
-                language === "EN" ? "Sign In" :
-                language === "ID" ? "Masuk" :
-                "Unknown Language"}
+                ? t.navigation.auth.signInProcess
+                : t.navigation.auth.signIn}
         </button>
     );
 };

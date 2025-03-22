@@ -1,7 +1,6 @@
 "use client"
 import CardHomeContent from "@/components/home/home-content";
 import CardHomeSkeleton from "@/components/home/home-content/skeleton";
-import { LanguageCodeType } from "@/utils/constants";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
@@ -13,14 +12,12 @@ interface HistoryItem {
 
 const ParentContent = (
     {
-        language,
         firstRecommendation
     }:{
-        language: LanguageCodeType;
         firstRecommendation:HistoryItem
     }) => {
     const [recommendContent, setRecommendContent] = useState<HistoryItem[]>([firstRecommendation]);
-    const [page, setPage] = useState(2);
+    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const observerRef = useRef<HTMLDivElement | null>(null);

@@ -9,27 +9,19 @@ import { FaHistory ,FaVideo } from "react-icons/fa";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { IoIosTimer } from "react-icons/io";
 import { AiFillLike } from "react-icons/ai";
-import { LanguageCodeType } from "@/utils/constants";
+import { useTranslation } from "@/hooks/useTranslation";
 
-type ParamsFuncType = {
-    language?: LanguageCodeType
-}
-
-const UserContent = ({ language = "EN" }: ParamsFuncType) => {
+const UserContent = () => {
     const { status } = useIsLogin();
-
+    const {t} = useTranslation();
+    
     if(status !== "authenticated" ){
         return (
             <div className="w-full py-4 border-t-2 border-b-2">
                 <p className="text-sm pb-2">
-                    {
-                        language === "JP" ? "動画に「いいね」、コメント、チャンネル登録するにはサインインしてください。" :
-                        language === "EN" ? "Sign in to like videos, comment, and subscribe." :
-                        language === "ID" ? "Masuk untuk menyukai video, berkomentar, dan berlangganan." :
-                        "Unknown Language"
-                    }
+                    {t.navigation.needSignIn}
                 </p>
-                <SignInBtn language={language} />
+                <SignInBtn />
             </div>
         );
     }
@@ -38,24 +30,14 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
         <>
             <div className="w-full py-4 border-t border-b">
                 <span className="roboto-Medium">
-                    {
-                        language === "JP" ? "あなたのコンテンツ" :
-                        language === "EN" ? "Yours" :
-                        language === "ID" ? "Milik Anda" :
-                        "Unknown Language"
-                    }
+                    {t.navigation.user.yours}
                 </span>
                 <ul>
                     <li className="hover:bg-highlightColor py-2 rounded-lg cursor-pointer dark:hover:bg-darkHover">
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <FaHistory className="w-8 h-4" />
                             <span className="w-full text-sm text line-clamp-1">
-                                {
-                                    language === "JP" ? "履歴" :
-                                    language === "EN" ? "History" :
-                                    language === "ID" ? "Riwayat" :
-                                    "Unknown Language"
-                                }
+                                {t.navigation.user.history}
                             </span>
                         </Link>
                     </li>
@@ -63,12 +45,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <MdOutlinePlaylistAdd className="w-8 h-5" />
                             <span className="w-full text-sm text line-clamp-1">
-                                {
-                                    language === "JP" ? "プレイリスト" :
-                                    language === "EN" ? "Playlist" :
-                                    language === "ID" ? "Daftar Putar" :
-                                    "Unknown Language"
-                                }
+                                {t.navigation.user.playlist}
                             </span>
                         </Link>
                     </li>
@@ -76,12 +53,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <FaVideo className="w-8" />
                             <span className="w-full text-sm text line-clamp-1">
-                                {
-                                    language === "JP" ? "あなたの動画" :
-                                    language === "EN" ? "Your videos" :
-                                    language === "ID" ? "Video Anda" :
-                                    "Unknown Language"
-                                }
+                                {t.navigation.user.yourVideo}
                             </span>
                         </Link>
                     </li>
@@ -89,12 +61,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <IoIosTimer className="w-8 h-5" />
                             <span className="w-full text-sm text line-clamp-1">
-                                {
-                                    language === "JP" ? "履歴" :
-                                    language === "EN" ? "History" :
-                                    language === "ID" ? "Riwayat" :
-                                    "Unknown Language"
-                                }
+                                {t.navigation.user.watchLater}
                             </span>
                         </Link>
                     </li>
@@ -102,12 +69,7 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
                         <Link href="/" className="flex justify-between items-center px-2 gap-2">
                             <AiFillLike className="w-8 h-5" />
                             <span className="w-full text-sm text line-clamp-1">
-                                {
-                                    language === "JP" ? "いいね" :
-                                    language === "EN" ? "Likes" :
-                                    language === "ID" ? "Suka" :
-                                    "Unknown Language"
-                                }
+                                {t.navigation.user.likedVideo}
                             </span>
                         </Link>
                     </li>
@@ -115,14 +77,9 @@ const UserContent = ({ language = "EN" }: ParamsFuncType) => {
             </div>
             <div className="w-full py-4 border-t border-b">
                 <span className="roboto-Medium">
-                    {
-                        language === "JP" ? "チャンネル登録" :
-                        language === "EN" ? "Subscription" :
-                        language === "ID" ? "Langganan" :
-                        "Unknown Language"
-                    }
+                    {t.navigation.user.subscription}
                 </span>
-                <Subscription language={language} />
+                <Subscription/>
             </div>
         </>
     );

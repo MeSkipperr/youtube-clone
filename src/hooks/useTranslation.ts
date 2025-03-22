@@ -5,6 +5,7 @@ import { useLanguage } from "@/context/language/LanguageContext";
 
 // Object containing translations for supported languages
 const translations = { en, id, jp };
+// const translations = { en};
 
 /**
  * Custom hook for retrieving translations based on the current language.
