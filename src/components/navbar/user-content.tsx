@@ -7,10 +7,10 @@ import { IoIosMoon, IoIosArrowForward } from "react-icons/io";
 import { FaGear } from "react-icons/fa6";
 import { IoCheckmark, IoLanguage } from "react-icons/io5";
 import { LANGUAGES, LanguageCodeType } from "@/utils/constants";
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { ThemeType, themeValue, useDarkMode } from "@/context/DarkModeContext";
 import { Session } from "next-auth";
+import { useLanguage } from "@/context/language/LanguageContext";
 
 type PageShowType = "THEME" | "LANGUAGE" | null;
 type ParamsFuncType = {
@@ -32,8 +32,8 @@ const getText = (status: boolean, language: string) => {
 };
 
 const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
-    const router = useRouter();
     const { setTheme } = useDarkMode();
+    const {setLanguage} = useLanguage();
 
     const [pageShow, setPageShow] = useState<PageShowType>(null);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -52,27 +52,6 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
         await signOut();
         setIsLoggingOut(false);
     };
-
-    const updateLanguage = async (lang: string) => {
-        try {
-            const res = await fetch("/api/set-language", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ language: lang }),
-            });
-
-            if (!res.ok) {
-                const errorData = await res.json(); // Coba ambil pesan error dari API
-                console.error("Cannot update cookie language value. Error:", errorData.error || "Unknown error");
-                return;
-            }
-            console.log("Language updated successfully!");
-            router.refresh();
-        } catch (error) {
-            console.error("Network error while updating language:", error);
-        }
-    };
-
 
     return (
         <div className="fixed top-16  right-0 w-1/6 max-h-[calc(100dvh-4rem)] overflow-y-auto  bg-white dark:bg-highlightColorDark shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20 rounded-lg p-4" onClick={(e) => e.stopPropagation()}>
@@ -157,7 +136,7 @@ const UserContent = ({ language = "EN" ,user}: ParamsFuncType) => {
                                 className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-highlightColor transition text-sm dark:hover:bg-darkHover dark:text-white"
                                 onClick={() => {
                                     setSelectedLanguage(lang.shortCode);
-                                    updateLanguage(lang.shortCode)
+                                    setLanguage(lang.shortCode)
                                 }}
                             >
                                 <div className="w-6 h-4 flex justify-center items-center rounded-full">

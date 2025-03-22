@@ -1,16 +1,21 @@
 import { cookies } from "next/headers";
-import { LanguageCodeType } from "./constants";
+import en from "@/locales/en.json";
+import id from "@/locales/id.json";
+import jp from "@/locales/jp.json";
+import { LanguageCodeType } from "@/context/language/languageData";
 
-/**
- * Retrieves the preferred language from cookies.
- * 
- * @returns {Promise<LanguageCodeType>} A promise that resolves to the language code stored in the cookies.
- * If the cookie is not set, it defaults to "EN".
- */
-export const getLanguage = async (): Promise<LanguageCodeType> => {
-    // Retrieve the cookies object from the request headers
-    const cookieStore = await cookies();
+const translations = { en, id, jp };
 
-    // Get the value of the "language" cookie and cast it to LanguageCodeType, defaulting to "EN" if not found
-    return (cookieStore.get("language")?.value as LanguageCodeType) || "EN";
+
+export const getLanguage = async (): Promise<{ language: LanguageCodeType; t: typeof en }> => {
+    // Tunggu cookies() agar tidak ada Promise yang menggantung
+    const cookieStore = await cookies(); // Tidak perlu await karena ini bukan async function
+
+    // Ambil nilai cookie "language", default ke "EN" jika tidak ada
+    const language = (cookieStore.get("language")?.value as LanguageCodeType) || "EN";
+
+    // Pilih terjemahan berdasarkan bahasa
+    const t = translations[language.toLowerCase() as keyof typeof translations] || translations.en;
+
+    return { language, t };
 };

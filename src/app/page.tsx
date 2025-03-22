@@ -16,8 +16,9 @@ const fetchInitialData = async () => {
 export default async function Home() {
   const isHaveRecommend = true;
   const initialData = await fetchInitialData();
-  const language = await getLanguage();
+  const {language,t} = await getLanguage();
 
+  console.log("Penerjemah : ", t)
 
   return (
   <div className="w-full min-h-dvh dark:bg-dark flex justify-start items-center pt-4 flex-col">
