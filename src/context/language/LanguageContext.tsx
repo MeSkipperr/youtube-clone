@@ -4,27 +4,37 @@ import { createContext, useContext, useState, useEffect, ReactNode, useRef, useC
 import { useRouter } from "next/navigation";
 import { LanguageCodeType } from "./languageData";
 
-// Tipe context
+// Context type definition
 interface LanguageContextType {
     language: LanguageCodeType;
     setLanguage: (lang: LanguageCodeType) => void;
 }
 
-// Context dengan default value
+// Create a context with an undefined default value
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Props Provider
+// Props definition for the LanguageProvider component
 interface LanguageProviderProps {
-    lang?: LanguageCodeType;
-    children: ReactNode;
+    lang?: LanguageCodeType; // Optional initial language, defaults to "EN"
+    children: ReactNode; // React children components
 }
 
+/**
+ * LanguageProvider component that manages the language state and provides it via context.
+ * 
+ * @param {LanguageProviderProps} props - Props containing the initial language and children components.
+ * @returns {JSX.Element} The context provider wrapping child components.
+ */
 export const LanguageProvider = ({ lang = "EN", children }: LanguageProviderProps) => {
     const router = useRouter();
     const [language, setLanguage] = useState<LanguageCodeType>(lang);
-    const isFirstRender = useRef(true); // Gunakan useRef untuk mendeteksi render pertama
+    const isFirstRender = useRef(true); // Tracks if this is the first render
 
-    // Fungsi untuk memperbarui bahasa di cookie/server
+    /**
+     * Updates the language preference on the server via an API request.
+     * 
+     * @param {LanguageCodeType} lang - The selected language code.
+     */
     const updateLanguage = useCallback(async (lang: LanguageCodeType) => {
         try {
             const res = await fetch("/api/set-language", {
@@ -40,17 +50,17 @@ export const LanguageProvider = ({ lang = "EN", children }: LanguageProviderProp
             }
 
             console.log("Language updated successfully!");
-            router.refresh(); // Refresh halaman setelah bahasa diperbarui
+            router.refresh(); // Refresh the page after updating the language
         } catch (error) {
             console.error("Network error while updating language:", error);
         }
     }, [router]);
 
-    // Effect untuk memantau perubahan language
+    // Effect to monitor changes in the language state and update the server accordingly
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
-            return; // Skip pertama kali komponen render
+            return; // Skip execution on the first render
         }
 
         if (language !== lang) {
@@ -65,7 +75,12 @@ export const LanguageProvider = ({ lang = "EN", children }: LanguageProviderProp
     );
 };
 
-// Custom hook untuk menggunakan context
+/**
+ * Custom hook to access the language context.
+ * 
+ * @returns {LanguageContextType} The current language and a function to update it.
+ * @throws {Error} If used outside of a LanguageProvider.
+ */
 export const useLanguage = () => {
     const context = useContext(LanguageContext);
     if (!context) {
