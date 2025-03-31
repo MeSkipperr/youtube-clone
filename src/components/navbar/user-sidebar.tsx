@@ -3,7 +3,6 @@
 import Image from "next/image";
 import UserContent from "./user-content";
 import { useState } from "react";
-import { LanguageCodeType } from "@/utils/constants";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
 import SignInBtn from "@/components/sign-in-button";
@@ -11,17 +10,16 @@ import { Session } from "next-auth";
 import { useTranslation } from "@/hooks/useTranslation";
 
 type ParamsFuncType = {
-    language?:LanguageCodeType;
     user:Session["user"] | null;
 }
 
-const UserSideBar = ({language = "EN",user}:ParamsFuncType)  => {
+const UserSideBar = ({user}:ParamsFuncType)  => {
     const [userProfilIsOpen, setUserProfilIsOpen] = useState<boolean>(false);
     const {t} = useTranslation();
 
     if(!user){
         return(
-            <SignInBtn language={language}/>
+            <SignInBtn />
         )
     }
 

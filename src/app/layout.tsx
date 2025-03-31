@@ -18,7 +18,6 @@ export default async function RootLayout({
 }>) {
 
   const {language} = await getLanguage();
-  console.log("language:",language)
 
   return (
     <html lang="en">

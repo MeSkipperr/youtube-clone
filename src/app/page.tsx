@@ -18,8 +18,6 @@ export default async function Home() {
   const initialData = await fetchInitialData();
   const {t} = await getLanguage();
 
-  console.log("Penerjemah : ", t)
-
   return (
   <div className="w-full min-h-dvh dark:bg-dark flex justify-start items-center pt-4 flex-col">
     {isHaveRecommend?
