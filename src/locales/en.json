@@ -1,4 +1,7 @@
 {
+  "control":{
+    "second":"second"
+  },
   "homePage":{
     "getStarted":[
       "Try searching to get started",

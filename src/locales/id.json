@@ -1,4 +1,7 @@
 {
+  "control":{
+    "second":"detik"
+  },
   "homePage": {
     "getStarted": [
       "Coba cari untuk memulai",

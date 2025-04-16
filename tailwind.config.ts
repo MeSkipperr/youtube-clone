@@ -21,6 +21,15 @@ export default {
         highlightColorDark:"#3E3F3E",
         darkHover:"#444644",
       },
+      keyframes: {
+        fade: {
+          '0%, 100%': { opacity: '0.3' },
+          '50%': { opacity: '1' },
+        },
+      },
+      animation: {
+        fade: 'fade 1s ease-in-out infinite',
+      },
     },
   },
   darkMode: 'class', 

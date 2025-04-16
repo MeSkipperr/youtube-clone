@@ -1,4 +1,7 @@
 {
+  "control":{
+    "second":"セカンド"
+  },
   "homePage": {
     "getStarted": [
       "検索して開始",
