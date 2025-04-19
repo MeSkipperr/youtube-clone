@@ -56,9 +56,9 @@ const ParentContent = (
     }, [hasMore, loading]);
 
     return ( 
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6 px-8">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6 px-8 ">
             {recommendContent.map((item) => (
-                <CardHomeContent key={"videoid:"+item.id}/>
+                <CardHomeContent key={"videoidrecomend:"+item.id}/>
             ))}
             {loading &&
                 Array.from({ length: 4 }).map((_, index) => (

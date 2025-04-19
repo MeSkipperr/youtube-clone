@@ -11,7 +11,7 @@ const ContentPage = ({videoUrl}:Props) => {
     return ( 
         <>
         <div className="w-2/3 h-full bg-amber-400 p-4">
-            <VideoCostumeControl videoUrl={videoUrl}/>
+            <VideoCostumeControl videoUrl={videoUrl} hexId={"asdas"} controlsList timeline keyShortcut autoPlay/>
         </div>
             <div className="w-1/3 h-full bg-green-300">
         </div>

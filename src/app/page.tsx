@@ -1,5 +1,6 @@
 import ParentContent from "@/components/home/content-parent";
 import CardHomeSkeleton from "@/components/home/home-content/skeleton";
+import MiniPlayer from "@/components/home/miniplayer";
 import { getLanguage } from "@/utils/getLanguage";
 
 const fetchInitialData = async () => {
@@ -19,10 +20,14 @@ export default async function Home() {
   const {t} = await getLanguage();
 
   return (
-  <div className="w-full min-h-dvh dark:bg-dark flex justify-start items-center pt-4 flex-col">
+  <div className="w-full min-h-dvh dark:bg-dark flex justify-start items-center pt-4 flex-col relative">
     {isHaveRecommend?
       initialData?
-        <ParentContent firstRecommendation={initialData}/>
+        <>
+          <ParentContent firstRecommendation={initialData}/>
+          <MiniPlayer/>
+        </>
+
         :
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-8">
           {Array.from({ length: 12 }).map((_, index) => (
