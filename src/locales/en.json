@@ -42,5 +42,24 @@
     },
     "showMore":"Show more",
     "showLess":"Show less"
+  },
+  "word": {
+    "subscriber": "Subscriber",
+    "subscribe": "Subscribe",
+    "subscribed": "Subscribed"
+  },
+  "numberScale": {
+    "million": {
+      "value": "Million",
+      "shortCode": "M"
+    },
+    "billion": {
+      "value": "Billion",
+      "shortCode": "B"
+    },
+    "trillion": {
+      "value": "Trillion",
+      "shortCode": "T"
+    }
   }
 }

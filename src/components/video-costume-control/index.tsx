@@ -5,6 +5,8 @@ import { useVolumeControl } from "./hooks/useVolumeControl";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { formatTime } from "@/utils/formated";
 
+import { memo } from 'react';
+
 import { IoPlaySharp, IoPause } from "react-icons/io5";
 import { MdSkipNext } from "react-icons/md";
 import { RxSpeakerOff, RxSpeakerModerate, RxSpeakerLoud } from "react-icons/rx";
@@ -385,7 +387,7 @@ const VideoCostumeControl: React.FC<VideoCostumeControlProps> = (
                     :null
                 }
                 {controls ||controlsList?
-                <div className="w-full flex justify-between z-10 " onClick={(e) => e.stopPropagation()}>
+                <div className="w-full flex justify-between z-10 text-white" onClick={(e) => e.stopPropagation()}>
                     <ul className="flex h-full gap-4 items-center">
                         {
                             !playing
@@ -450,4 +452,4 @@ const VideoCostumeControl: React.FC<VideoCostumeControlProps> = (
     );
 };
 
-export default VideoCostumeControl;
+export default memo(VideoCostumeControl); 

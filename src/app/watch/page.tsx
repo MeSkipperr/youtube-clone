@@ -14,7 +14,7 @@ const SelectedVideo = async ({ searchParams }: Props) => {
         : "";
 
     return ( 
-        <div className="w-full flex  h-dvh bg-slate-300 gap-4">
+        <div className="w-full flex  h-dvh  gap-4">
             <ContentPage videoUrl={videoUrl} />
         </div>
     );

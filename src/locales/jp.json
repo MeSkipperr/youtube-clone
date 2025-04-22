@@ -42,5 +42,24 @@
     },
     "showMore": "さらに表示",
     "showLess": "表示を減らす"
+  },
+  "word": {
+    "subscriber": "登録者",
+    "subscribe": "登録する",
+    "subscribed": "登録済み"
+  },
+  "numberScale": {
+    "million": {
+      "value": "百万",
+      "shortCode": "百万"
+    },
+    "billion": {
+      "value": "十億",
+      "shortCode": "十億"
+    },
+    "trillion": {
+      "value": "一兆",
+      "shortCode": "兆"
+    }
   }
 }
